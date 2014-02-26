@@ -4,7 +4,7 @@ React = require "react"
 {h1, h2, h3, h4}               = React.DOM
 {form, label, input, textarea} = React.DOM
 
-status-to-colour = -> "red"
+{status-to-colour} = require './helpers.ls'
 
 module.exports = React.create-class do
   render: ->

@@ -2,12 +2,15 @@ React = window.React = require "react" # Expose for Chrome DevTools
 {div, span, p, a, img, ul, li} = React.DOM
 {h1, h2, h3, h4}               = React.DOM
 {form, label, input, textarea} = React.DOM
+{table, thead, tbody, th, td, tr} = React.DOM
 
 Layout = require "./layout.ls"
 api = require "./api.ls"
 
 Top = require "./top.ls"
 Left = require "./left.ls"
+
+{status-to-colour} = require './helpers.ls'
 
 module.exports = React.create-class do
   getInitialState: ->
@@ -22,5 +25,19 @@ module.exports = React.create-class do
       @setState service: service
 
   render: ->
-    return div null, "Loading..." unless @state.service
-    h1 null, @state.service.name
+    service = @state.service
+    return div null, "Loading..." unless service
+
+    div null,
+      h1 null, service.name
+      table className: "list",
+        thead
+          th null, "Host"
+          th null, "Status"
+        tbody null,
+          service.hosts.map (host) ->
+            tr className: "host #{status-to-colour host.status}",
+             td null, host.hostname
+             td className: "number",
+               span className: "status"
+               a null, host.status || "Unknown"

@@ -13,4 +13,4 @@ module.exports = React.create-class do
         input placeholder: "Search all..." type: "text"
       div className: "tab"
         ul id: "repos",
-          @props.services.map (s) -> new Service service: s
+          @props.services.map (s) -> new Service key: s.id, service: s

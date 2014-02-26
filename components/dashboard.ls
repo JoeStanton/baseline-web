@@ -6,6 +6,5 @@ React = require "react"
 
 module.exports = React.create-class do
   render: ->
-    div id: "main",
-      h1 null, "Dashboard"
+    h1 null, "Dashboard"
 

@@ -22,7 +22,5 @@ module.exports = React.create-class do
       @setState service: service
 
   render: ->
-    return Layout null, "Loading..." unless @state.service
-
-    Layout null,
-      h1 null, @state.service.name
+    return div null, "Loading..." unless @state.service
+    h1 null, @state.service.name

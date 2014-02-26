@@ -11,10 +11,11 @@ exports.start = ->
   api.base_url = "http://localhost:3000"
 
   root = document.getElementById \wrapper
+  layout = React.render-component Layout(), root
+  listen layout
 
   render = (Component, options={}, callback) ->
-    layout = React.render-component new Component(options), root
-    listen layout unless listening
+    layout.setProps children: Component(options)
     layout
 
   page '/', -> render Dashboard

@@ -3,6 +3,7 @@ page = require "page"
 api = require "./api.ls"
 Layout = require "./layout.ls"
 Dashboard = require "./dashboard.ls"
+ServiceOverview = require "./service-overview.ls"
 
 listening = false
 
@@ -12,13 +13,12 @@ exports.start = ->
   root = document.getElementById \wrapper
 
   render = (Component, options={}, callback) ->
-    component = new Component options
-    layout = React.render-component Layout(children: component), root
+    layout = React.render-component new Component(options), root
     listen layout unless listening
     layout
 
   page '/', -> render Dashboard
-  page '/:slug', (ctx) -> render Dashboard
+  page '/:slug', (ctx) -> render ServiceOverview, slug: ctx.params.slug
 
   page.start()
 

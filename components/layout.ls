@@ -6,7 +6,6 @@ React = window.React = require "react" # Expose for Chrome DevTools
 api = require "./api.ls"
 
 Top = require "./top.ls"
-Service = require "./service.ls"
 Left = require "./left.ls"
 
 module.exports = React.create-class do

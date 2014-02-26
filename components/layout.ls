@@ -7,15 +7,7 @@ api = require "./api.ls"
 
 Top = require "./top.ls"
 Service = require "./service.ls"
-
-Left = React.create-class do
-  render: ->
-    div id: "left",
-      div id: "search_box",
-        input placeholder: "Search all..." type: "text"
-      div className: "tab"
-        ul id: "repos",
-          @props.services.map (s) -> new Service service: s
+Left = require "./left.ls"
 
 module.exports = React.create-class do
   getInitialState: ->

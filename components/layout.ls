@@ -33,12 +33,7 @@ Left = React.create-class do
         ul id: "repos",
           @props.systems.map (s) -> new System system: s
 
-Dashboard = React.create-class do
-  render: ->
-    div id: "main",
-      h1 null, "Dashboard"
-
-module.exports = window.Layout = Layout = React.create-class do
+module.exports = React.create-class do
   getInitialState: ->
     systems: []
 
@@ -53,4 +48,4 @@ module.exports = window.Layout = Layout = React.create-class do
     div className: "application",
       new Top
       Left systems: @state.systems
-      new Dashboard
+      @props.children

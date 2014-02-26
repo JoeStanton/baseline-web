@@ -6,16 +6,7 @@ React = window.React = require "react" # Expose for Chrome DevTools
 api = require "./api.ls"
 
 Top = require "./top.ls"
-
-system-to-colour = -> "red"
-
-System = React.create-class do
-  render: ->
-    system = @props.system
-
-    li className: "repo #{system-to-colour system.status}",
-      a className: "slug" href: "/#{system.id}", system.name
-      p className: "summary", system.description
+Service = require "./service.ls"
 
 Left = React.create-class do
   render: ->
@@ -24,21 +15,21 @@ Left = React.create-class do
         input placeholder: "Search all..." type: "text"
       div className: "tab"
         ul id: "repos",
-          @props.systems.map (s) -> new System system: s
+          @props.services.map (s) -> new Service service: s
 
 module.exports = React.create-class do
   getInitialState: ->
-    systems: []
+    services: []
 
   sync: ->
     api.get "/services/", (error, services) ~>
       return console.error error if error
-      @setState systems: services
+      @setState services: services
 
   componentWillMount: -> @sync!
 
   render: ->
     div className: "application",
       new Top
-      Left systems: @state.systems
+      Left services: @state.services
       @props.children

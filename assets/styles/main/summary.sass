@@ -1,0 +1,33 @@
+@import "_mixins/all"
+
+#summary
+  margin: 0 0 0 12px
+  @include clearfix
+
+  .left,
+  .right
+    float: left
+
+  a
+    text-decoration: underline
+
+  dt, dd
+    float: left
+    min-height: 25px
+    margin: 0
+  dt
+    clear: left
+    width: 90px
+  dd
+    width: 150px
+    white-space: nowrap
+  > dd
+    width: 80%
+    min-width: 315px
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  .message
+    white-space: normal
+    min-width: 0

@@ -1,0 +1,111 @@
+@import "_mixins/all"
+
+#top
+  line-height: 60px
+  background: #40454f
+  font-size: $font-size-normal
+
+  h1
+    float: left
+    width: 72px
+    height: 30px
+    margin: 12px 40px 0 22px
+    text-indent: -9999px
+    background: inline-image('ui/logo.png') no-repeat
+    background-size: cover
+
+  ul
+    list-style-type: none
+
+  a, span
+    color: #ffffff
+    text-decoration: none
+
+  li
+    display: inline-block
+    a, span
+      display: block
+      padding: 0 15px
+      &:hover
+        color: #ADC7D0
+
+  li.traviscicom
+    a
+      padding-left: 0px
+
+  .menu
+    position: relative
+
+    .handle
+      margin: 0
+
+    &:hover > ul
+      display: block
+
+    ul
+      display: none
+      position: absolute
+      z-index: 300
+      top: 55px
+      width: 100%
+      background-color: $color-bg-dropdown
+
+      li
+        display: block
+        &:last-child a:hover
+
+      a
+        display: block
+        line-height: 24px
+        white-space: nowrap
+        padding: 5px 25px
+        &:hover
+          background-color: $color-bg-dropdown-highlight
+
+  .menu.community
+    min-width: 120px
+
+  .menu.profile
+    float: right
+
+    .handle > *
+      display: none
+      padding: 0 15px 0 45px
+    .signed-out, .signing-in
+      min-width: 110px
+    &.signed-out .signed-out
+      display: block
+    &.signing-in .signing-in
+      display: inline-block
+    &.signed-in .signed-in
+      display: block
+
+    .signing-in
+      background: inline-image('ui/spinner.gif') no-repeat 110px 22px
+
+    img
+      position: absolute
+      top: 12px
+      left: 5px
+      width: 30px
+      height: 30px
+
+    ul
+      min-width: 145px
+
+      a
+        padding: 5px 25px 5px 45px
+
+    &:not(.signed-in):hover ul
+      display: none
+
+
+#home #navigation .home,
+#stats #navigation .stats,
+#profile #navigation .profile
+  background-color: transparent
+  a
+    color: #ffffff
+  a:hover
+    color: $color-link-top-highlight
+

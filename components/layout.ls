@@ -1,18 +1,11 @@
 React = window.React = require "react" # Expose for Chrome DevTools
-{div, span, p, a, img, ul, li}         = React.DOM
+{div, span, p, a, img, ul, li} = React.DOM
 {h1, h2, h3, h4}               = React.DOM
 {form, label, input, textarea} = React.DOM
 
 api = require "./api.ls"
 
-Top = React.create-class do
-  render: ->
-    div id: "top",
-      h1 null,
-        a className: "active", "Lighthouse"
-      ul id: "navigation",
-        li null,
-          a href: "/", "Dashboard"
+Top = require "./top.ls"
 
 system-to-colour = -> "red"
 

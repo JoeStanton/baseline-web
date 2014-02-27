@@ -24,6 +24,9 @@ module.exports = (grunt) ->
       styles:
         files: "assets/styles/**/*.sass"
         tasks: [ "compass:dev" ]
+      components:
+        files: "components/*.ls"
+        tasks: [ "browserify:dev" ]
 
   # Tasks
   grunt.loadNpmTasks "grunt-contrib-watch"

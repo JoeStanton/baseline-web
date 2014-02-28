@@ -7,6 +7,8 @@ React = require "react"
 
 d3 = require "d3"
 
+{status-to-colour} = require './helpers.ls'
+
 module.exports = React.create-class do
   render: ->
     svg width: 1000 height: 600
@@ -31,8 +33,16 @@ module.exports = React.create-class do
     data = @root.selectAll "g"
                   .data @force.nodes!
 
+    links = @root.selectAll ".link"
+                 .data @force.links!
+                 .enter!
+                 .append "path"
+                 .attr "class", "link"
+
     groups = data.enter!
                  .append "g"
+
+    data.attr "class", (d) -> status-to-colour d.status
 
     groups.append "circle"
           .attr "r", 12
@@ -50,6 +60,6 @@ module.exports = React.create-class do
     @force.start!
 
   componentWillReceiveProps: (newProps) ->
-    return if newProps.nodes.length === @props.nodes.length
     @force.nodes newProps.nodes
+    @force.links newProps.edges
     @paint!

@@ -17,8 +17,10 @@ module.exports = React.create-class do
       return console.error error if error
       @setState services: services
 
-  componentWillMount: ->
-    @sync!
+    return unless @props.children
+    new Array(@props.children).forEach (c) -> c.sync? && c.sync!
+
+  componentWillMount: -> @sync!
 
   render: ->
     div className: "application",

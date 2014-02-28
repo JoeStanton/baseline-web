@@ -12,9 +12,13 @@ module.exports = React.create-class do
     nodes: []
     edges: []
 
-  componentWillMount: ->
+  componentWillMount: -> @sync!
+
+  sync: ->
     api.get '/services/', (error, services) ~>
-      @setState nodes: services, edges: []
+      @setState nodes: services, edges: [
+        source: 0 target: 1 weight: 1
+      ]
 
   render: ->
     h1 null, "Dashboard"

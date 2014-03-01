@@ -17,8 +17,17 @@ module.exports = React.create-class do
   sync: ->
     api.get '/services/', (error, services) ~>
       @setState nodes: services, edges: [
-        source: 0 target: 1 weight: 1
+        * source: 0 target: 1 value: 1
+        * source: 1 target: 2 value: 1
       ]
+
+  addNode: (node) ->
+    @state.nodes.push(name: node, status: "warning")
+    @setState @state
+
+  removeNode: (node) ->
+    @state.nodes.push(name: node, status: "warning")
+    @setState @state
 
   render: ->
     h1 null, "Dashboard"

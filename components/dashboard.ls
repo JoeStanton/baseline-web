@@ -7,6 +7,8 @@ React = require "react"
 api = require "./api.ls"
 Graph = require "./graph.ls"
 
+{map, concat-map, flatten} = require 'prelude-ls'
+
 module.exports = React.create-class do
   getInitialState: ->
     nodes: []
@@ -16,10 +18,13 @@ module.exports = React.create-class do
 
   sync: ->
     api.get '/services/', (error, services) ~>
-      @setState nodes: services, edges: [
-        * source: 0 target: 1 value: 1
-        * source: 1 target: 2 value: 1
-      ]
+      serviceLookup = {}
+      services.forEach (s, index) -> serviceLookup[s.id] = index
+      edges = services
+              |> map(({id, dependencies}) -> map ((dep) -> source: serviceLookup[id], target: serviceLookup[dep], weight: 1), dependencies)
+              |> flatten
+
+      @setState nodes: services, edges: edges
 
   addNode: (node) ->
     @state.nodes.push(name: node, status: "warning")

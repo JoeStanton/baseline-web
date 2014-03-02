@@ -12,7 +12,7 @@ exports.start = ->
 
   root = document.getElementById \wrapper
   layout = React.render-component Layout(), root
-  #listen layout
+  listen layout
 
   render = (Component, options={}, callback) ->
     layout.setProps children: Component(options)

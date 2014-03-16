@@ -11,7 +11,7 @@ d3 = require "d3"
 
 module.exports = React.create-class do
   render: ->
-    svg width: 1100 height: 800
+    svg width: '100%' height: '100%'
 
   shouldComponentUpdate: -> false
 

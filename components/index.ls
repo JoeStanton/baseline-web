@@ -8,7 +8,7 @@ ServiceOverview = require "./service-overview.ls"
 listening = false
 
 exports.start = ->
-  api.base_url = "http://localhost:3000"
+  api.base_url = "http://192.168.1.142:3000"
 
   root = document.getElementById \wrapper
   layout = React.render-component Layout(), root

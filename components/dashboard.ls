@@ -19,9 +19,9 @@ module.exports = React.create-class do
   sync: ->
     api.get '/services/', (error, services) ~>
       serviceLookup = {}
-      services.forEach (s, index) -> serviceLookup[s.id] = index
+      services.forEach (s, index) -> serviceLookup[s.slug] = index
       edges = services
-              |> map(({id, dependencies}) -> map ((dep) -> source: serviceLookup[id], target: serviceLookup[dep], weight: 1), dependencies)
+              |> map(({slug, dependencies}) -> map ((dep) -> source: serviceLookup[slug], target: serviceLookup[dep], weight: 1), dependencies)
               |> flatten
 
       @setState nodes: services, edges: edges

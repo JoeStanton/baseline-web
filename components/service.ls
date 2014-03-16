@@ -11,5 +11,5 @@ module.exports = React.create-class do
     service = @props.service
 
     li className: "repo #{status-to-colour service.status}",
-      a className: "slug" href: "/#{service.id}", service.name
+      a className: "slug" href: "/#{service.slug}", service.name
       p className: "summary", service.description

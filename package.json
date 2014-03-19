@@ -20,12 +20,17 @@
   },
   "homepage": "https://github.com/redbadger/haller",
   "dependencies": {
-    "react": "~0.9",
+    "react": "^0.9.0",
     "page": "~1.3.7",
     "jquery": "~2.1.0",
     "express": "~3.4.8",
-    "jade": "~1.1.5",
-    "http-proxy": "~1.0.2"
+    "jade": "^1.1.5",
+    "http-proxy": "~1.0.2",
+    "grunt-contrib-uglify": "^0.3.3",
+    "grunt-contrib-watch": "^0.5.3",
+    "mocha": "^1.17.1",
+    "browserify": "^3.20.2",
+    "prelude-ls": "^1.0.3"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

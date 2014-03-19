@@ -1,7 +1,7 @@
 {
-  "name": "Haller",
+  "name": "lighthouse-web",
   "version": "0.1.0",
-  "description": "The Haller App",
+  "description": "React WebUI For Lighthouse",
   "main": "server.js",
   "engines": {
     "node": "0.10.x"
@@ -11,20 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/redbadger/haller.git"
+    "url": "https://github.com/JoeStanton/lighthouse-web.git"
   },
   "author": "Joe Stanton (Red Badger Consulting Ltd.)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/redbadger/haller/issues"
+    "url": "https://github.com/JoeStanton/lighthouse-web/issues"
   },
-  "homepage": "https://github.com/redbadger/haller",
+  "homepage": "https://github.com/JoeStanton/lighthouse-web",
   "dependencies": {
     "react": "^0.9.0",
     "page": "~1.3.7",
     "jquery": "~2.1.0",
     "express": "~3.4.8",
-    "jade": "^1.1.5",
     "http-proxy": "~1.0.2",
     "grunt-contrib-uglify": "^0.3.3",
     "grunt-contrib-watch": "^0.5.3",

@@ -30,7 +30,7 @@
     "mocha": "1.17.1",
     "browserify": "3.20.2",
     "prelude-ls": "1.0.3",
-    "d3": "3.4.3"
+    "d3": "^3.4.3"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

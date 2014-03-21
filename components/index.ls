@@ -8,7 +8,7 @@ ServiceOverview = require "./service-overview.ls"
 listening = false
 
 exports.start = ->
-  api.base_url = "/api"
+  api.base_url = "https://api.lighthouse.local"
 
   root = document.getElementById \wrapper
   layout = React.render-component Layout(), root

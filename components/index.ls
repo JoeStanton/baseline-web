@@ -8,7 +8,7 @@ ServiceOverview = require "./service-overview.ls"
 listening = false
 
 exports.start = ->
-  api.base_url = "http://lighthouse-api.herokuapp.com"
+  api.base_url = "/api"
 
   root = document.getElementById \wrapper
   layout = React.render-component Layout(), root

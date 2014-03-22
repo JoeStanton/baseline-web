@@ -7,9 +7,15 @@ ServiceOverview = require "./service-overview.ls"
 
 listening = false
 
-exports.start = ->
-  api.base_url = "https://api.lighthouse.local"
+listen = (component) ->
+  pusher = new Pusher "48576a45701f7987f3fc"
+  channel = pusher.subscribe "updates"
+  channel.bind "service.create", component.sync
+  channel.bind "service.update", component.sync
+  channel.bind "service.destroy", component.sync
+  listening = true
 
+exports.start = ->
   root = document.getElementById \wrapper
   layout = React.render-component Layout(), root
   listen layout
@@ -23,11 +29,3 @@ exports.start = ->
   page '/:slug', (ctx) -> render ServiceOverview, slug: ctx.params.slug
 
   page.start()
-
-listen = (component) ->
-  pusher = new Pusher "48576a45701f7987f3fc"
-  channel = pusher.subscribe "updates"
-  channel.bind "service.create", component.sync
-  channel.bind "service.update", component.sync
-  channel.bind "service.destroy", component.sync
-  listening = true

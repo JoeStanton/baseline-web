@@ -1,12 +1,12 @@
 $ = require "jquery"
 
-exports.base_url = null
+exports.base_url = process.env.MANAGEMENT_API || "http://localhost:3000"
 
 exports.get = (path, callback) ->
   throw new Error("The base_url has not yet been set" + path) unless exports.base_url
   throw new Error("The path specified was not valid: " + path) unless path
 
-  url = exports.base_url + path
+  url =  exports.base_url + path
 
   $.ajax do
     url: url

@@ -30,7 +30,8 @@
     "mocha": "1.17.1",
     "browserify": "3.20.2",
     "prelude-ls": "1.0.3",
-    "d3": "^3.4.3"
+    "d3": "^3.4.3",
+    "gulp-compass": "^1.1.7"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -42,6 +43,7 @@
     "browserify": "~3.20.0",
     "chai": "~1.9.0",
     "mocha": "~1.17.1",
-    "liveify": "~0.3.1"
+    "liveify": "~0.3.1",
+    "envify": "1.2.1"
   }
 }

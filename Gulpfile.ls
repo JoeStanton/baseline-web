@@ -19,7 +19,8 @@ browserify-config = (instance) ->
   bundler.transform 'envify'
   bundler.require './components/index.ls', expose: 'app'
 
-build-config = debug: true
+build-config =
+  debug: process.env.NODE_ENV != "production"
 
 gulp.task 'browserify', ->
   bundler = browserify-config browserify

@@ -26,6 +26,7 @@ build-config =
 update = (bundler) ->
   gutil.log 'Bundling'
   bundler.bundle build-config
+    .on 'error', gutil.log
     .pipe source('app.js')
     .pipe gulp.dest('.')
     .on 'end', -> gutil.log 'Bundle complete'

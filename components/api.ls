@@ -1,6 +1,6 @@
 $ = require "jquery"
 
-exports.base_url = process.env.MANAGEMENT_API || "http://localhost:3000"
+exports.base_url = process.env.API || "https://api.lighthouse.local"
 
 exports.get = (path, callback) ->
   throw new Error("The base_url has not yet been set" + path) unless exports.base_url

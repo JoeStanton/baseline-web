@@ -10,9 +10,7 @@ listening = false
 listen = (component) ->
   pusher = new Pusher "48576a45701f7987f3fc"
   channel = pusher.subscribe "updates"
-  channel.bind "service.create", component.sync
-  channel.bind "service.update", component.sync
-  channel.bind "service.destroy", component.sync
+  channel.bind_all component.sync
   listening = true
 
 exports.start = ->

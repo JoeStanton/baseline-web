@@ -12,3 +12,13 @@ module.exports = React.create-class do
       ul id: "navigation",
         li null,
           a href: "/", "Dashboard"
+        li null,
+          a href: "/incidents", "Incidents"
+        li null,
+          a href: "/", "Events"
+        #li null,
+          #a href: "/", "Metrics"
+        #li null,
+          #a href: "/", "Logs"
+        #li null,
+          #a href: "/", "Settings"

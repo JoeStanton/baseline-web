@@ -4,6 +4,7 @@ api = require "./api.ls"
 Layout = require "./layout.ls"
 Dashboard = require "./dashboard.ls"
 ServiceOverview = require "./service-overview.ls"
+Incidents = require "./incidents.ls"
 
 listening = false
 
@@ -26,6 +27,7 @@ exports.start = ->
     layout.setProps children: Component(options)
 
   page '/', -> render Dashboard
+  page '/incidents', (ctx) -> render Incidents
   page '/:slug', (ctx) -> render ServiceOverview, slug: ctx.params.slug
 
   page.start()

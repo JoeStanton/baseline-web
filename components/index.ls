@@ -18,10 +18,8 @@ exports.start = ->
   layout = React.render-component Layout(), root
   listen layout
 
-  render = (Component, options={}, callback) ->
+  render = (Component, options={}) ->
     layout.setProps children: Component(options)
-    window.layout = layout
-    layout
 
   page '/', -> render Dashboard
   page '/:slug', (ctx) -> render ServiceOverview, slug: ctx.params.slug

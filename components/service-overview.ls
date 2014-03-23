@@ -30,19 +30,13 @@ module.exports = React.create-class do
     return div null, "Loading..." unless service
     div null,
       h1 null, service.name
-      Components components: service.components
+      Components(components: service.components)
       HostsTable hosts: service.hosts
 
 Components = React.create-class do
   render: ->
-    #div null,
-      #@props.components.map (component) ->
-        #div className: "component #{status-to-colour(component.status)}",
-          #strong null, component.status || "Unknown"
-          #strong null, "#{component.name} - #{component.description}"
-    
     table className: "list",
-      thead
+      thead null,
         th null, "Component"
         th null, "Description"
         th null, "Status"
@@ -58,7 +52,7 @@ Components = React.create-class do
 HostsTable = React.create-class do
   render: ->
     table className: "list",
-      thead
+      thead null,
         th null, "Host"
         th null, "Status"
       tbody null,

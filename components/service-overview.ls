@@ -28,8 +28,19 @@ module.exports = React.create-class do
   render: ->
     service = @state.service
     return div null, "Loading..." unless service
-    div null,
+    div className: "green #{status-to-colour service.status}",
       h1 null, service.name
+      dl id: "summary",
+        dt null, 'Service Status'
+        dd className: "number",
+          span className: "status"
+          a href: "", "Healthy"
+        dt null, 'Service Uptime'
+        dd null, '98.34%'
+        dt null, 'Mean Time Before Failure'
+        dd null, '3 weeks'
+        dt null, 'Avg. Recovery Time'
+        dd null, '30 mins'
       Components(components: service.components)
       HostsTable hosts: service.hosts
 

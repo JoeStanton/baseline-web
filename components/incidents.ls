@@ -6,7 +6,10 @@ React = require "react"
 {table, thead, tbody, th, td, tr} = React.DOM
 {strong, dl, dt, dd} = React.DOM
 
+Layout = require "./layout.ls"
+
 module.exports = React.create-class do
+  displayName: "Incidents"
   getInitialState: ->
     open: [
       service: "Fortnum & Mason Awards Site"
@@ -25,19 +28,21 @@ module.exports = React.create-class do
 
   render: ->
     {open, resolved} = @state
-    div null,
-      h1 null, "Open Incidents"
-      if open.length
-        open.map Incident
-      else
-        "None."
-      #h1 null, "Resolved Incidents"
-      #if resolved.length
-        #open.map Incident
-      #else
-        #"None."
+    Layout null,
+      div null,
+        h1 null, "Open Incidents"
+        if open.length
+          open.map Incident
+        else
+          "None."
+        #h1 null, "Resolved Incidents"
+        #if resolved.length
+          #open.map Incident
+        #else
+          #"None."
 
 Incident = React.create-class do
+  displayName: "Incident"
   render: ->
     div className: "incident",
       h2 null, @props.service
@@ -54,7 +59,7 @@ Incident = React.create-class do
         dd null, @props.components.join ', '
       div className: "related",
         h2 null, "Similar Incidents",
-          Table incidents: [
+          IncidentTable incidents: [
             service: "Fortnum & Mason Awards"
             components: ["Nginx"]
             date: 'Fri 14th March - 10:30PM (10 days ago)'
@@ -63,7 +68,8 @@ Incident = React.create-class do
             root-cause: "File descriptor limit exceeded. Caused intermittent failed requests."
           ]
 
-Table = React.create-class do
+IncidentTable = React.create-class do
+  displayName: "Table"
   render: ->
     table className: "list",
       thead null,

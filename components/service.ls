@@ -7,9 +7,10 @@ React = require "react"
 {status-to-colour} = require './helpers.ls'
 
 module.exports = React.create-class do
+  displayName: 'Service'
   render: ->
     service = @props.service
 
-    li className: "repo #{status-to-colour service.status}",
+    li key: service.name, className: "repo #{status-to-colour service.status}",
       a className: "slug" href: "/#{service.slug}", service.name
       p className: "summary", service.description

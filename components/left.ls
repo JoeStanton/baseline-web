@@ -7,10 +7,11 @@ React = require "react"
 Service = require "./service.ls"
 
 module.exports = React.create-class do
+  displayName: "Left"
   render: ->
     div id: "left",
       div id: "search_box",
         input placeholder: "Search all..." type: "text"
       div className: "tab"
         ul id: "repos",
-          @props.services.map (s) -> new Service key: s.id, service: s
+          @props.services.map (s) -> new Service key: s.name, service: s

@@ -1,4 +1,4 @@
-React = window.React = require "react" # Expose for Chrome DevTools
+React = window.React = require "react/addons" # Expose for Chrome DevTools
 {div, span, p, a, img, ul, li} = React.DOM
 {h1, h2, h3, h4}               = React.DOM
 {form, label, input, textarea} = React.DOM
@@ -8,7 +8,10 @@ api = require "./api.ls"
 Top = require "./top.ls"
 Left = require "./left.ls"
 
+{TransitionGroup} = React.addons
+
 module.exports = React.create-class do
+  displayName: "Layout"
   getInitialState: ->
     services: []
 
@@ -27,4 +30,5 @@ module.exports = React.create-class do
       Top null
       Left services: @state.services
       div id: "main",
-        @props.children
+        TransitionGroup transition-name: "page-transition",
+          @props.children

@@ -1,7 +1,6 @@
 page = require "page"
 
 api = require "./api.ls"
-Layout = require "./layout.ls"
 Dashboard = require "./dashboard.ls"
 ServiceOverview = require "./service-overview.ls"
 Incidents = require "./incidents.ls"
@@ -20,11 +19,10 @@ listen = (component) ->
 
 exports.start = ->
   root = document.getElementById \wrapper
-  layout = React.render-component Layout(), root
-  listen layout
 
-  render = (Component, options={}) ->
-    layout.setProps children: Component(options)
+  render = (Component, options) ->
+    React.render-component Component(options), root
+    #listen layout
 
   page '/', -> render Dashboard
   page '/incidents', (ctx) -> render Incidents

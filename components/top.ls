@@ -5,6 +5,7 @@ React = require "react"
 {form, label, input, textarea} = React.DOM
 
 module.exports = React.create-class do
+  displayName: "Top"
   render: ->
     div id: "top",
       h1 null,

@@ -7,6 +7,8 @@ React = require "react"
 api = require "./api.ls"
 Graph = require "./graph.ls"
 
+Layout = require "./layout.ls"
+
 {map, concat-map, flatten} = require 'prelude-ls'
 
 module.exports = React.create-class do
@@ -35,5 +37,6 @@ module.exports = React.create-class do
     @setState @state
 
   render: ->
-    h1 null, "Dashboard"
-    Graph nodes: @state.nodes, edges: @state.edges
+    Layout null,
+      h1 null, "Dashboard"
+      Graph nodes: @state.nodes, edges: @state.edges

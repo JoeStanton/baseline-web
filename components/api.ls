@@ -1,4 +1,4 @@
-$ = require "jquery"
+request = require "superagent"
 
 exports.base_url = process.env.API || "https://api.lighthouse.local"
 
@@ -8,13 +8,7 @@ exports.get = (path, callback) ->
 
   url =  exports.base_url + path
 
-  $.ajax do
-    url: url
-    dataType: "json"
-    headers:
-      accept: "application/json"
-
-    success: (data, status, xhr) ->
-      callback null, data
-
-    error: callback
+  request.get url
+         .set "Accept", "application/json"
+         .end (error, response) ->
+           callback error, response.body

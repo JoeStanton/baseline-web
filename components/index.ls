@@ -8,9 +8,13 @@ ServiceOverview = require "./service-overview.ls"
 listening = false
 
 listen = (component) ->
+  Pusher.log = (message) -> console.log message
   pusher = new Pusher "48576a45701f7987f3fc"
   channel = pusher.subscribe "updates"
-  channel.bind_all component.sync
+  for entity in ['service', 'component', 'host']
+    channel.bind "#{entity}.create", component.sync
+    channel.bind "#{entity}.update", component.sync
+    channel.bind "#{entity}.destroy", component.sync
   listening = true
 
 exports.start = ->

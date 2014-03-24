@@ -5,7 +5,6 @@ React = window.React = require "react" # Expose for Chrome DevTools
 {table, thead, tbody, th, td, tr} = React.DOM
 {dl, dd, dt} = React.DOM
 
-Layout = require "./layout.ls"
 api = require "./api.ls"
 
 Top = require "./top.ls"
@@ -13,38 +12,30 @@ Left = require "./left.ls"
 
 {status-to-colour} = require './helpers.ls'
 
+{find} = require 'prelude-ls'
+
 module.exports = React.create-class do
   displayName: 'ServiceOverview'
-  getInitialState: ->
-    service: null
-
-  componentDidMount: -> @sync @props.slug
-  componentWillReceiveProps: (next) -> @sync next.slug
-
-  sync: (slug) ->
-    api.get "/services/#{slug}", (error, service) ~>
-      return console.error error if error
-      @setState service: service
 
   render: ->
-    service = @state.service
-    return Layout null, "Loading..." unless service
-    Layout null,
-      div className: "green #{status-to-colour service.status}",
-        h1 null, service.name
-        dl id: "summary",
-          dt null, 'Service Status'
-          dd className: "number",
-            span className: "status"
-            a href: "", "Healthy"
-          dt null, 'Service Uptime'
-          dd null, '98.34%'
-          dt null, 'Mean Time Before Failure'
-          dd null, '3 weeks'
-          dt null, 'Avg. Recovery Time'
-          dd null, '30 mins'
-        ComponentsTable components: service.components
-        HostsTable hosts: service.hosts
+    root = @
+    service = @props.services |> find (.slug == root.props.slug)
+    return div null, "Loading..." unless service
+    div className: "green #{status-to-colour service.status}",
+      h1 null, service.name
+      dl id: "summary",
+        dt null, 'Service Status'
+        dd className: "number",
+          span className: "status"
+          a href: "", "Healthy"
+        dt null, 'Service Uptime'
+        dd null, '98.34%'
+        dt null, 'Mean Time Before Failure'
+        dd null, '3 weeks'
+        dt null, 'Avg. Recovery Time'
+        dd null, '30 mins'
+      ComponentsTable components: service.components
+      HostsTable hosts: service.hosts
 
 ComponentsTable = React.create-class do
   displayName: 'ComponentsTable'

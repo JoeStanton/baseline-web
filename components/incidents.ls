@@ -6,8 +6,6 @@ React = require "react"
 {table, thead, tbody, th, td, tr} = React.DOM
 {strong, dl, dt, dd} = React.DOM
 
-Layout = require "./layout.ls"
-
 module.exports = React.create-class do
   displayName: "Incidents"
   getInitialState: ->
@@ -28,18 +26,17 @@ module.exports = React.create-class do
 
   render: ->
     {open, resolved} = @state
-    Layout null,
-      div null,
-        h1 null, "Open Incidents"
-        if open.length
-          open.map Incident
-        else
-          "None."
-        #h1 null, "Resolved Incidents"
-        #if resolved.length
-          #open.map Incident
-        #else
-          #"None."
+    div null,
+      h1 null, "Open Incidents"
+      if open.length
+        open.map Incident
+      else
+        "None."
+      #h1 null, "Resolved Incidents"
+      #if resolved.length
+        #open.map Incident
+      #else
+        #"None."
 
 Incident = React.create-class do
   displayName: "Incident"

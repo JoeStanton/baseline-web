@@ -6,6 +6,8 @@ ServiceOverview = require "./service-overview.ls"
 Incidents = require "./incidents.ls"
 Events = require "./events.ls"
 
+Layout = require "./layout.ls"
+
 listening = false
 
 listen = (component) ->
@@ -20,10 +22,11 @@ listen = (component) ->
 
 exports.start = ->
   root = document.getElementById \wrapper
+  window.layout = layout = React.render-component Layout!, root
+  listen layout
 
   render = (Component, options) ->
-    React.render-component Component(options), root
-    #listen layout
+    layout.setProps handler: Component, options: options
 
   page '/', -> render Dashboard
   page '/incidents', (ctx) -> render Incidents

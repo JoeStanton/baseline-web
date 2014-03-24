@@ -10,8 +10,23 @@ Left = require "./left.ls"
 
 {TransitionGroup} = React.addons
 
+merge = ->
+  obj = {}
+  i = 0
+  il = arguments.length
+  key = undefined
+  while i < il
+    for key of arguments[i]
+      obj[key] = arguments[i][key] if arguments[i].hasOwnProperty(key)
+    i++
+  obj
+
 module.exports = React.create-class do
   displayName: "Layout"
+  getDefaultProps: ->
+    handler: null
+    options: {}
+
   getInitialState: ->
     services: []
 
@@ -20,9 +35,6 @@ module.exports = React.create-class do
       return console.error error if error
       @setState services: services
 
-    return unless @props.children
-    new Array(@props.children).forEach (c) -> c.sync? && c.sync!
-
   componentWillMount: -> @sync!
 
   render: ->
@@ -30,5 +42,4 @@ module.exports = React.create-class do
       Top null
       Left services: @state.services
       div id: "main",
-        TransitionGroup transition-name: "page-transition",
-          @props.children
+        @props.handler merge(@state, @props.options) if @props.handler

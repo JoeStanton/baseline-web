@@ -6,8 +6,6 @@ React = require "react"
 {table, thead, tbody, th, td, tr} = React.DOM
 {strong, dl, dt, dd, hr} = React.DOM
 
-Layout = require "./layout.ls"
-
 module.exports = React.create-class do
   displayName: "Events"
   getInitialState: ->
@@ -36,15 +34,14 @@ module.exports = React.create-class do
       @setState events: events
 
   render: ->
-    Layout null,
-      h1 null, 'Recent Events'
-      div null, @state.events.map (event) ->
-        switch event.type
-          | "deployment" => Deployment event
-          | "configuration" => Configuration event
-          | "host-register" => HostRegistration event
-          | "host-deregister" => HostRegistration event
-          | otherwise => Event event
+    h1 null, 'Recent Events'
+    div null, @state.events.map (event) ->
+      switch event.type
+        | "deployment" => Deployment event
+        | "configuration" => Configuration event
+        | "host-register" => HostRegistration event
+        | "host-deregister" => HostRegistration event
+        | otherwise => Event event
 
 Event = React.create-class do
   displayName: "Event"

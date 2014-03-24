@@ -4,15 +4,13 @@ source = require 'vinyl-source-stream'
 browserify = require 'browserify'
 watchify = require 'watchify'
 
-compass = require 'gulp-compass'
+sass = require 'gulp-ruby-sass'
 
 gulp.task 'compass', ->
-  gulp.src('./assets/*.sass').pipe do
-    compass do
-      bundleExec: true,
-      sassDir: 'assets/styles'
-      css: 'public/styles/'
-      images: 'images'
+  gulp
+    .src 'assets/styles/bundle.sass'
+    .pipe(sass(compass: true))
+    .pipe gulp.dest 'public/styles'
 
 get-bundler = (instance) ->
   bundler = instance './components/index.ls'
@@ -32,7 +30,9 @@ update = (bundler) ->
     .on 'end', -> gutil.log 'Bundle complete'
 
 gulp.task 'browserify', -> browserify |> get-bundler |> update
+
 gulp.task 'watch', ->
+  gulp.watch 'assets/styles/**/*.sass', ['compass']
   watch = watchify |> get-bundler
   watch.on 'update' -> update watch
   update watch

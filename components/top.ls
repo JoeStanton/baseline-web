@@ -16,7 +16,7 @@ module.exports = React.create-class do
         li null,
           a href: "/incidents", "Incidents"
         li null,
-          a href: "/", "Events"
+          a href: "/events", "Events"
         #li null,
           #a href: "/", "Metrics"
         #li null,

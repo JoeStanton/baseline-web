@@ -4,6 +4,7 @@ api = require "./api.ls"
 Dashboard = require "./dashboard.ls"
 ServiceOverview = require "./service-overview.ls"
 Incidents = require "./incidents.ls"
+Events = require "./events.ls"
 
 listening = false
 
@@ -26,6 +27,7 @@ exports.start = ->
 
   page '/', -> render Dashboard
   page '/incidents', (ctx) -> render Incidents
+  page '/events', (ctx) -> render Events
   page '/:slug', (ctx) -> render ServiceOverview, slug: ctx.params.slug
 
   page.start()

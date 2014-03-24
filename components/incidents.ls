@@ -58,8 +58,16 @@ Incident = React.create-class do
         dt null, 'Affected Components'
         dd null, @props.components.join ', '
       div className: "related",
+        h2 null, "Recent Events",
+          EventsTable events: [
+            type: "Deployment"
+            service: "Fortnum & Mason Awards"
+            date: 'Fri 14th March - 10:30PM (10 days ago)'
+            hosts: "rb-prod-01"
+          ]
+
         h2 null, "Similar Incidents",
-          IncidentTable incidents: [
+          IncidentsTable incidents: [
             service: "Fortnum & Mason Awards"
             components: ["Nginx"]
             date: 'Fri 14th March - 10:30PM (10 days ago)'
@@ -68,8 +76,25 @@ Incident = React.create-class do
             root-cause: "File descriptor limit exceeded. Caused intermittent failed requests."
           ]
 
-IncidentTable = React.create-class do
-  displayName: "Table"
+EventsTable = React.create-class do
+  displayName: "EventsTable"
+  render: ->
+    table className: "list",
+      thead null,
+        th null, "Event Type"
+        th null, "Service"
+        th null, "Date"
+        th null, "Hosts"
+      tbody null,
+        @props.events.map (event) ->
+          tr className: "related-event",
+           td null, event.type
+           td null, event.service
+           td null, event.date
+           td null, event.hosts
+
+IncidentsTable = React.create-class do
+  displayName: "IncidentsTable"
   render: ->
     table className: "list",
       thead null,

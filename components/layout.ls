@@ -8,6 +8,8 @@ api = require "./api.ls"
 Top = require "./top.ls"
 Left = require "./left.ls"
 
+async = require 'async'
+
 {TransitionGroup} = React.addons
 
 merge = ->
@@ -29,11 +31,17 @@ module.exports = React.create-class do
 
   getInitialState: ->
     services: []
+    incidents: []
+    events: []
 
   sync: ->
-    api.get "/services/", (error, services) ~>
-      return console.error error if error
-      @setState services: services
+    async.parallel do
+      services: (cb) -> api.get "/services/", cb
+      incidents: (cb) -> api.get "/incidents/", cb
+      events: (cb) -> api.get "/events/", cb
+      , (error, state) ~>
+        return console.error error if error
+        @setState state
 
   componentWillMount: -> @sync!
 

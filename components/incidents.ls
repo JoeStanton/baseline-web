@@ -6,26 +6,24 @@ React = require "react"
 {table, thead, tbody, th, td, tr} = React.DOM
 {strong, dl, dt, dd} = React.DOM
 
+moment = require 'moment'
+{group-by} = require 'prelude-ls'
+
+#service: "Fortnum & Mason Awards Site"
+#components: ["Nginx"]
+#hosts: ["rb-prod-01"]
+#notified-users: ["Joe Stanton", "Stuart Harris"]
+#root-cause: "File descriptor limit exceeded."
+
 module.exports = React.create-class do
   displayName: "Incidents"
   getInitialState: ->
-    open: [
-      service: "Fortnum & Mason Awards Site"
-      components: ["Nginx"]
-      hosts: ["rb-prod-01"]
-      notified-users: ["Joe Stanton", "Stuart Harris"]
-      root-cause: "File descriptor limit exceeded."
-    ]
+    open: []
     resolved: []
 
-  sync: ->
-    api.get '/incidents/', (error, incidents) ~>
-      return console.error error if error
-      incidents = services |> group-by (.status)
-      @setState open: incidents['open'] resolved: incidents['resolved']
-
   render: ->
-    {open, resolved} = @state
+    {open, resolved} = @props.incidents |> group-by (.status)
+    return div null, "Loading" unless open and resolved
     div null,
       h1 null, "Open Incidents"
       if open.length
@@ -40,16 +38,19 @@ module.exports = React.create-class do
 
 Incident = React.create-class do
   displayName: "Incident"
+  format-date: (date) ->
+    "#{moment(date).format 'Do MMMM YYYY - h:mmA'} (#{moment(date).from-now!})"
+
   render: ->
     div className: "incident",
-      h2 null, @props.service
+      h2 null, "Incident ##{@props.id} - #{@props.service.name}"
       dl id: "summary",
         dt null, 'Service Status'
         dd null, 'DOWN'
         dt null, 'Started'
-        dd null, 'Mon 24th March - 10:30PM (2 hours ago)'
+        dd null, @format-date @props.created_at
         dt null, 'Notified Users'
-        dd null, @props.notified-users.join ', '
+        dd null, @props.notified-users?.join ', '
         dt null, 'Hosts'
         dd null, @props.hosts.join ', '
         dt null, 'Affected Components'

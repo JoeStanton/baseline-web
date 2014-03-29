@@ -28,7 +28,7 @@ module.exports = React.create-class do
         "None."
       h1 null, "Resolved Incidents"
       if resolved
-        open.map Incident
+        resolved.map Incident
       else
         "None."
 

@@ -9,7 +9,7 @@ sass = require 'gulp-ruby-sass'
 gulp.task 'compass', ->
   gulp
     .src 'assets/styles/bundle.sass'
-    .pipe(sass(compass: true))
+    .pipe(sass(compass: true, bundleExec: true))
     .pipe gulp.dest 'public/styles'
 
 get-bundler = (instance) ->

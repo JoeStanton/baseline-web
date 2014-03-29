@@ -32,12 +32,11 @@
     "d3": "^3.4.3",
     "superagent": "^0.17.0",
     "async": "^0.4.0",
-    "moment": "^2.5.1",
-    "gulp-ruby-sass": "^0.4.1"
+    "moment": "^2.5.1"
   },
   "devDependencies": {
     "gulp": "^3.5.6",
-    "gulp-compass": "^1.1.7",
+    "gulp-ruby-sass": "JoeStanton/gulp-ruby-sass",
     "browserify": "~3.20.0",
     "chai": "~1.9.0",
     "mocha": "~1.17.1",

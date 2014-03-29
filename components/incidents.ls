@@ -17,24 +17,20 @@ moment = require 'moment'
 
 module.exports = React.create-class do
   displayName: "Incidents"
-  getInitialState: ->
-    open: []
-    resolved: []
-
   render: ->
+    return div null, "Loading..." unless @props.incidents
     {open, resolved} = @props.incidents |> group-by (.status)
-    return div null, "Loading" unless open and resolved
     div null,
       h1 null, "Open Incidents"
-      if open.length
+      if open
         open.map Incident
       else
         "None."
-      #h1 null, "Resolved Incidents"
-      #if resolved.length
-        #open.map Incident
-      #else
-        #"None."
+      h1 null, "Resolved Incidents"
+      if resolved
+        open.map Incident
+      else
+        "None."
 
 Incident = React.create-class do
   displayName: "Incident"

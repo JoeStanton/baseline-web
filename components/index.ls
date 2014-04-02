@@ -11,7 +11,7 @@ Layout = require "./layout.ls"
 listening = false
 
 listen = (component) ->
-  Pusher.log = (message) -> console.log message
+  #Pusher.log = (message) -> console.log message
   pusher = new Pusher "48576a45701f7987f3fc"
   channel = pusher.subscribe "updates"
   for entity in ['service', 'component', 'host']

@@ -31,6 +31,6 @@ exports.start = ->
   page '/', -> render Dashboard
   page '/incidents', (ctx) -> render Incidents
   page '/events', (ctx) -> render Events
-  page '/:slug', (ctx) -> render ServiceOverview, slug: ctx.params.slug
+  page '/:slug', (ctx) -> render ServiceOverview, key: ctx.params.slug, slug: ctx.params.slug
 
   page.start()

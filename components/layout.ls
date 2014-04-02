@@ -33,6 +33,7 @@ module.exports = React.create-class do
     services: []
     incidents: []
     events: []
+    loaded: false
 
   sync: ->
     async.parallel do
@@ -41,7 +42,7 @@ module.exports = React.create-class do
       events: (cb) -> api.get "/events/", cb
       , (error, state) ~>
         return console.error error if error
-        @setState state
+        @setState merge(state, loaded: true)
 
   componentWillMount: -> @sync!
 
@@ -50,4 +51,4 @@ module.exports = React.create-class do
       Top null
       Left services: @state.services
       div id: "main",
-        @props.handler merge(@state, @props.options) if @props.handler
+        @props.handler merge(@state, @props.options) if @props.handler and @state.loaded

@@ -12,14 +12,40 @@ Left = require "./left.ls"
 
 {status-to-colour} = require './helpers.ls'
 
+numeral = require 'numeral'
+
 {find} = require 'prelude-ls'
 
 module.exports = React.create-class do
   displayName: 'ServiceOverview'
+  componentWillMount: -> @get-uptime!
+
+  get-uptime: ->
+    service = @get-service!
+    return unless service
+
+    timespan = '1h'
+    query =
+      from: "-#{timespan}"
+      target: """
+      summarize(
+        transformNull(#{service.graphite_path}.health),
+        "#{timespan}",
+        "avg",
+        true
+      )"""
+
+    that = @
+    api.metrics-query query, (error, response) ->
+        return console.error error if error
+        that.set-state uptime: response.0?.datapoints?.0?.0
+
+  get-service: ->
+    root = @
+    @props.services |> find (.slug == root.props.slug)
 
   render: ->
-    root = @
-    service = @props.services |> find (.slug == root.props.slug)
+    service = @get-service!
     return div null, "Loading..." unless service
     div className: "green #{status-to-colour service.status}",
       h1 null, service.name
@@ -29,7 +55,7 @@ module.exports = React.create-class do
           span className: "status"
           a href: "", "Healthy"
         dt null, 'Service Uptime'
-        dd null, '98.34%'
+        dd null, if @state?.uptime then numeral(@state.uptime).format "0.000%" else "Loading..."
         dt null, 'Mean Time Before Failure'
         dd null, '3 weeks'
         dt null, 'Avg. Recovery Time'

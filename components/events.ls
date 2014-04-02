@@ -6,46 +6,60 @@ React = require "react"
 {table, thead, tbody, th, td, tr} = React.DOM
 {strong, dl, dt, dd, hr} = React.DOM
 
+{status-to-colour, format-date} = require './helpers.ls'
+
+display-type = (type) ->
+  switch type
+    | "CheckEvent" => "Health Check"
+
 module.exports = React.create-class do
   displayName: "Events"
-  getInitialState: ->
-    events: [
-    * type: "deployment"
-      service: "Fortnum & Mason Awards Site"
-      environment: "Staging"
-      components: ["Application"]
-      hosts: ["rb-staging-01"]
-
-    * type: "configuration"
-      service: "Fortnum & Mason Awards Site"
-      components: ["Nginx"]
-      hosts: ["rb-prod-01"]
-
-    * type: "host-register"
-      service: "Fortnum & Mason Awards Site"
-      environment: "Production"
-      hosts: ["rb-prod-01"]
-      components: ["Redis"]
-    ]
-
-  sync: ->
-    api.get '/events/', (error, events) ~>
-      return console.error error if error
-      @setState events: events
-
   render: ->
-    h1 null, 'Recent Events'
-    div null, @state.events.map (event) ->
-      switch event.type
-        | "deployment" => Deployment event
-        | "configuration" => Configuration event
-        | "host-register" => HostRegistration event
-        | "host-deregister" => HostRegistration event
-        | otherwise => Event event
+    div null,
+      h1 null, 'Recent Events'
+      table className: "list",
+        thead null,
+          th null, "Status"
+          th null, "Event Type"
+          th null, "Created At"
+          th null, "Service"
+          th null, "Component"
+          th null, "Host"
+        tbody null,
+          @props.events.map (event) ->
+            tr className: "related-event host #{status-to-colour event.status}",
+              td className: "number",
+                span className: "status"
+                  a null, event.status || "Unknown"
+              td null, display-type(event.type)
+              td null, format-date(event.created_at)
+              td null, event.service?.name
+              td null, event.component?.name
+              td null, event.host?.hostname
+
+#div null, @props.events.map (event) ->
+  #switch event.type
+    #| "CheckEvent" => CheckEvent event
+    #| "deployment" => Deployment event
+    #| "configuration" => Configuration event
+    #| "host-register" => HostRegistration event
+    #| "host-deregister" => HostRegistration event
+    #| otherwise => Event event
 
 Event = React.create-class do
   displayName: "Event"
   render: -> div null
+
+CheckEvent = React.create-class do
+  displayName: "CheckEvent"
+  render: ->
+    div className: "event",
+      if @props.host
+        strong null, "Host #{@props.host.hostname} changed state to: #{@props.status}"
+      else if @props.component
+        strong null, "#{@props.service.name} - #{@props.component.name} changed state to: #{@props.status}"
+      else
+        strong null, "#{@props.service.name} changed state to: #{@props.status}"
 
 Configuration = React.create-class do
   displayName: "ConfigurationEvent"

@@ -9,6 +9,8 @@ React = require "react"
 moment = require 'moment'
 {group-by} = require 'prelude-ls'
 
+{format-date} = require './helpers.ls'
+
 #service: "Fortnum & Mason Awards Site"
 #components: ["Nginx"]
 #hosts: ["rb-prod-01"]
@@ -34,9 +36,6 @@ module.exports = React.create-class do
 
 Incident = React.create-class do
   displayName: "Incident"
-  format-date: (date) ->
-    "#{moment(date).format 'Do MMMM YYYY - h:mmA'} (#{moment(date).from-now!})"
-
   render: ->
     div className: "incident",
       h2 null, "Incident ##{@props.id} - #{@props.service.name}"
@@ -44,7 +43,7 @@ Incident = React.create-class do
         dt null, 'Service Status'
         dd null, 'DOWN'
         dt null, 'Started'
-        dd null, @format-date @props.created_at
+        dd null, format-date @props.created_at
         dt null, 'Notified Users'
         dd null, @props.notified-users?.join ', '
         dt null, 'Hosts'

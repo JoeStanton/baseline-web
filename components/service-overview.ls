@@ -10,7 +10,7 @@ api = require "./api.ls"
 Top = require "./top.ls"
 Left = require "./left.ls"
 
-{status-to-colour} = require './helpers.ls'
+{status-to-colour, format-duration} = require './helpers.ls'
 
 numeral = require 'numeral'
 
@@ -56,10 +56,10 @@ module.exports = React.create-class do
           a href: "", "Healthy"
         dt null, 'Service Uptime'
         dd null, if @state?.uptime then numeral(@state.uptime).format "0.000%" else "Loading..."
-        dt null, 'Mean Time Before Failure'
-        dd null, '3 weeks'
-        dt null, 'Avg. Recovery Time'
-        dd null, '30 mins'
+        dt null, 'Mean Time Between Failure'
+        dd null, format-duration service.mean_time_between_failure
+        dt null, 'Mean Time To Recovery'
+        dd null, format-duration service.mean_time_to_recovery
       ComponentsTable components: service.components
       HostsTable hosts: service.hosts
 

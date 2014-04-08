@@ -18,28 +18,6 @@ numeral = require 'numeral'
 
 module.exports = React.create-class do
   displayName: 'ServiceOverview'
-  componentWillMount: -> @get-uptime!
-
-  get-uptime: ->
-    service = @get-service!
-    return unless service
-
-    timespan = '1h'
-    query =
-      from: "-#{timespan}"
-      target: """
-      summarize(
-        transformNull(#{service.graphite_path}.health),
-        "#{timespan}",
-        "avg",
-        true
-      )"""
-
-    that = @
-    api.metrics-query query, (error, response) ->
-        return console.error error if error
-        that.set-state uptime: response.0?.datapoints?.0?.0
-
   get-service: ->
     root = @
     @props.services |> find (.slug == root.props.slug)
@@ -54,8 +32,8 @@ module.exports = React.create-class do
         dd className: "number",
           span className: "status"
           a href: "", "Healthy"
-        dt null, 'Service Uptime'
-        dd null, if @state?.uptime then numeral(@state.uptime).format "0.000%" else "Loading..."
+        dt null, 'Service Availability:'
+        dd null, if service.availability then numeral(service.availability).format "0.000%" else "N/A"
         dt null, 'Mean Time Between Failure'
         dd null, format-duration service.mean_time_between_failure
         dt null, 'Mean Time To Recovery'

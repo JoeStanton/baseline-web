@@ -1,4 +1,4 @@
-Lighthouse Web
+Baseline Web
 ==============
 
 Provides the real-time user interface for Lighthouse. Built with

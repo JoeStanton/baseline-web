@@ -9,7 +9,7 @@ module.exports = React.create-class do
   render: ->
     div id: "top",
       h1 null,
-        a className: "active", "Lighthouse"
+        a className: "active", "Baseline"
       ul id: "navigation",
         li null,
           a href: "/", "Dashboard"

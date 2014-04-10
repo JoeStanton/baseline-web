@@ -1,7 +1,7 @@
 {
-  "name": "lighthouse-web",
+  "name": "baseline-web",
   "version": "0.1.0",
-  "description": "React WebUI For Lighthouse",
+  "description": "React WebUI For baseline",
   "main": "server.js",
   "engines": {
     "node": "0.10.x"
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JoeStanton/lighthouse-web.git"
+    "url": "https://github.com/JoeStanton/baseline-web.git"
   },
   "author": "Joe Stanton (Red Badger Consulting Ltd.)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JoeStanton/lighthouse-web/issues"
+    "url": "https://github.com/JoeStanton/baseline-web/issues"
   },
-  "homepage": "https://github.com/JoeStanton/lighthouse-web",
+  "homepage": "https://github.com/JoeStanton/baseline-web",
   "dependencies": {
     "react": "0.10.0",
     "page": "~1.3.7",

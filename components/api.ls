@@ -1,7 +1,7 @@
 request = require "superagent"
 merge = require "merge"
 
-exports.base_url = process.env.API || "https://api.lighthouse.local"
+exports.base_url = process.env.API || "https://api.baseline.local"
 exports.metrics_url = "http://monitoring.joestanton.co.uk:8000"
 
 exports.get = (path, callback) ->

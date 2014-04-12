@@ -21,6 +21,7 @@ module.exports = React.create-class do
         thead null,
           th null, "Status"
           th null, "Event Type"
+          th null, "Message"
           th null, "Created At"
           th null, "Service"
           th null, "Component"
@@ -32,6 +33,7 @@ module.exports = React.create-class do
                 span className: "status"
                   a null, event.status || "Unknown"
               td null, display-type(event.type)
+              td null, event.message
               td null, format-date(event.created_at)
               td null, event.service?.name
               td null, event.component?.name

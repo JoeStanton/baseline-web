@@ -25,13 +25,12 @@ module.exports = React.create-class do
   render: ->
     service = @get-service!
     return div null, "Loading..." unless service
-    div className: "green #{status-to-colour service.status}",
+    div className: "#{status-to-colour service.status}",
       h1 null, service.name
       dl id: "summary",
         dt null, 'Service Status'
         dd className: "number",
-          span className: "status"
-          a href: "", "Healthy"
+          Status status: service.status, message: service.latest_message
         dt null, 'Service Availability:'
         dd null, if service.availability then numeral(service.availability).format "0.000%" else "N/A"
         dt null, 'Mean Time Between Failure'
@@ -40,6 +39,16 @@ module.exports = React.create-class do
         dd null, format-duration service.mean_time_to_recovery
       ComponentsTable components: service.components
       HostsTable hosts: service.hosts
+
+Status = React.create-class do
+  render: ->
+    {status, message} = @props
+    span null,
+      span className: "status"
+      switch status
+        | 'ok' => a null, "Healthy"
+        | 'error' => a null, "Error - #message"
+        | 'unknown' => a null, "Unknown"
 
 ComponentsTable = React.create-class do
   displayName: 'ComponentsTable'
@@ -55,8 +64,7 @@ ComponentsTable = React.create-class do
            td null, component.name
            td null, component.description
            td className: "number",
-             span className: "status"
-             a null, component.status || "Unknown"
+             Status status: component.status, message: component.latest_message
 
 HostsTable = React.create-class do
   displayName: 'HostsTable'
@@ -70,5 +78,4 @@ HostsTable = React.create-class do
           tr className: "host #{status-to-colour host.status}",
            td null, host.hostname
            td className: "number",
-             span className: "status"
-             a null, host.status || "Unknown"
+             Status status: host.status, message: host.latest_message

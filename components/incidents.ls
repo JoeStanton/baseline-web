@@ -41,7 +41,7 @@ Incident = React.create-class do
       h2 null, "Incident ##{@props.id} - #{@props.service.name}"
       dl id: "summary",
         dt null, 'Service Status'
-        dd null, 'DOWN'
+        dd null, @props.service.status
         dt null, 'Started'
         dd null, format-date @props.created_at
         dt null, 'Notified Users'
@@ -50,24 +50,27 @@ Incident = React.create-class do
         dd null, @props.hosts.join ', '
         dt null, 'Affected Components'
         dd null, @props.components.join ', '
-      div className: "related",
-        h2 null, "Recent Events",
-          EventsTable events: [
-            type: "Deployment"
-            service: "Fortnum & Mason Awards"
-            date: 'Fri 14th March - 10:30PM (10 days ago)'
-            hosts: "rb-prod-01"
-          ]
+        @related! if @props.status == 'open'
 
-        h2 null, "Similar Incidents",
-          IncidentsTable incidents: [
-            service: "Fortnum & Mason Awards"
-            components: ["Nginx"]
-            date: 'Fri 14th March - 10:30PM (10 days ago)'
-            resolution-time: '10 minutes'
-            resolved-by: 'Stuart Harris'
-            root-cause: "File descriptor limit exceeded. Caused intermittent failed requests."
-          ]
+  related: ->
+    div className: "related",
+      h2 null, "Recent Events",
+        EventsTable events: [
+          type: "Deployment"
+          service: "Fortnum & Mason Awards"
+          date: 'Fri 14th March - 10:30PM (10 days ago)'
+          hosts: "rb-prod-01"
+        ]
+
+      h2 null, "Similar Incidents",
+        IncidentsTable incidents: [
+          service: "Fortnum & Mason Awards"
+          components: ["Nginx"]
+          date: 'Fri 14th March - 10:30PM (10 days ago)'
+          resolution-time: '10 minutes'
+          resolved-by: 'Stuart Harris'
+          root-cause: "File descriptor limit exceeded. Caused intermittent failed requests."
+        ]
 
 EventsTable = React.create-class do
   displayName: "EventsTable"

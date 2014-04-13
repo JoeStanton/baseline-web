@@ -35,9 +35,9 @@ module.exports = React.create-class do
               td null, display-type(event.type)
               td null, event.message
               td null, format-date(event.created_at)
-              td null, event.service?.name
-              td null, event.component?.name
-              td null, event.host?.hostname
+              td null, event.service_name
+              td null, event.component_.name
+              td null, event.hostname
 
 #div null, @props.events.map (event) ->
   #switch event.type

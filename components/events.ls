@@ -36,7 +36,7 @@ module.exports = React.create-class do
               td null, event.message
               td null, format-date(event.created_at)
               td null, event.service_name
-              td null, event.component_.name
+              td null, event.component_name
               td null, event.hostname
 
 #div null, @props.events.map (event) ->

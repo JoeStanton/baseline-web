@@ -4,6 +4,7 @@ React = window.React = require "react" # Expose for Chrome DevTools
 {form, label, input, textarea} = React.DOM
 {table, thead, tbody, th, td, tr} = React.DOM
 {dl, dd, dt} = React.DOM
+{nav} = React.DOM
 
 api = require "./api.ls"
 
@@ -27,6 +28,11 @@ module.exports = React.create-class do
     return div null, "Loading..." unless service
     div className: "#{status-to-colour service.status}",
       h1 null, service.name
+      ul className: "nav tabs",
+        li null,
+          a href: "#", "Components"
+        li className: "active",
+          a href: "#", "Metrics"
       dl id: "summary",
         dt null, 'Service Status'
         dd className: "number",

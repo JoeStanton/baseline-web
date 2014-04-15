@@ -1,32 +1,88 @@
-@import "_mixins/all.sass"
-@import "ansi.sass"
-@import "app/auth.sass"
-@import "app/button.sass"
-@import "app/flash.sass"
-@import "app/github.sass"
-@import "app/loading.sass"
-@import "app/misc.sass"
-@import "app/popup.sass"
-@import "app.sass"
-@import "auth.sass"
-@import "getting_started.sass"
-@import "layout.sass"
-@import "left/list.sass"
-@import "left.sass"
-@import "main/list.sass"
-@import "main/log.sass"
-@import "main/repository.sass"
-@import "main/sponsors.sass"
-@import "main/summary.sass"
-@import "main/tools.sass"
-@import "main.sass"
-@import "maximize.sass"
-@import "profile/hooks.sass"
-@import "profile.sass"
-@import "right/lists.sass"
-@import "right/sponsors.sass"
-@import "right.sass"
-@import "stats.sass"
-@import "status.sass"
-@import "tabs.sass"
-@import "top.sass"
+@font-face
+  font-family: "ProximaNova"
+  src: url(/public/ProximaNova400.woff) format('woff')
+
+$font-family-sans-serif: "ProximaNova"
+$text-color: rgb(52, 52, 52)
+$link-hover-color: #007196
+$headings-font-weight: 800
+
+@import bootstrap
+
+#top
+  background-color: #04394e
+  padding-top: 1em
+  padding-bottom: 1em
+  padding-left: 3em
+
+  h1
+    display: inline
+    a
+      color: white
+
+  a
+    color: #84aebe
+    &:hover
+      text-decoration: none
+
+  ul
+    display: inline
+    li
+      padding: 0 1em
+      line-height: 3em
+      display: inline-block
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      webkit-border-radius: 5px
+      moz-border-radius: 5px
+      border-radius: 5px
+      &:hover
+        background-color: #084963
+
+body
+  -webkit-font-smoothing: antialiased
+  background-color: #fbfbfb
+
+#left
+  @include make-sm-column(2)
+  min-height: 100%
+  padding-top: 18px
+
+  #search_box input
+    width: 100%
+
+  ul
+    list-style: none
+
+#main
+  @include make-sm-column(10)
+
+.tabs
+  border-bottom: 1px solid #ddd
+  margin-top: 20px
+  margin-bottom: 12px
+  li
+    border: none
+    margin: 0
+    float: left
+
+    a
+      background: none
+      color: #898989
+      line-height: 1em
+      padding: 0 1em 1.5em 1em
+      border: none
+      margin: 0
+      &:hover, &.active
+        background: none
+        color: #007196
+        box-shadow: 0 -1px #007196 inset, 0 1px #007196
+
+footer
+  width: 960px
+  margin: 0 auto
+
+.row-border, .event
+  padding: 10px 0 15px 0
+  margin: 20px 0
+  border-bottom: 1px solid #eee

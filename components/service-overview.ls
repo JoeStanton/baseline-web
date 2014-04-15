@@ -29,15 +29,14 @@ module.exports = React.create-class do
     div className: "#{status-to-colour service.status}",
       h1 null, service.name
       ul className: "nav tabs",
-        li null,
-          a href: "#", "Components"
-        li className: "active",
-          a href: "#", "Metrics"
-      dl id: "summary",
+        li null, a className: "active" href: "#", "Service Overview"
+        li null, a href: "#", "Incidents"
+        li null, a href: "#", "Events"
+      dl id: "summary" className: "dl-horizontal",
         dt null, 'Service Status'
         dd className: "number",
           Status status: service.status, message: service.latest_message
-        dt null, 'Service Availability:'
+        dt null, 'Service Availability'
         dd null, if service.availability then numeral(service.availability).format "0.000%" else "N/A"
         dt null, 'Mean Time Between Failure'
         dd null, format-duration service.mean_time_between_failure
@@ -59,7 +58,7 @@ Status = React.create-class do
 ComponentsTable = React.create-class do
   displayName: 'ComponentsTable'
   render: ->
-    table className: "list",
+    table className: "table",
       thead null,
         th null, "Component"
         th null, "Description"
@@ -75,7 +74,7 @@ ComponentsTable = React.create-class do
 HostsTable = React.create-class do
   displayName: 'HostsTable'
   render: ->
-    table className: "list",
+    table className: "table",
       thead null,
         th null, "Host"
         th null, "Status"

@@ -45,6 +45,9 @@ module.exports = React.create-class do
     return div null, "Loading..." unless service
     div null,
       h1 className: "status #{status-to-colour service.status}", service.name
+      div className: "pull-right left-inner-addon",
+        i className: "fa fa-search"
+        input id: "search" placeholder: "Search..."
       ul className: "nav tabs",
         li null, a className: "#{@active "overview"}" href: "./", "Service Overview"
         li null, a className: "#{@active "incidents"}" href: "./incidents", "Incidents"

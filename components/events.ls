@@ -52,7 +52,7 @@ Deployment = React.create-class do
     div null,
       h2 null, "#{@props.service_name} - Deployment "
       span className: "big-text", format-date @props.created_at
-      dl id: "summary",
+      dl className: "dl-horizontal" id: "summary",
         div className: "left",
           dt null, "Repo"
           dd null, @props.repo
@@ -73,7 +73,7 @@ HostRegistration = React.create-class do
     div null,
       register = @props.type is "host-register"
       h2 null, "#{@props.service} - Node \"#{@props.hosts}\" #{if register then "Registered" else "Deregistered"}"
-      dl id: "summary",
+      dl className: "dl-horizontal" id: "summary",
         dt null, "Hostname"
         dd null, @props.hosts
         dt null, "Environment"

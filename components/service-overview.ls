@@ -26,8 +26,8 @@ module.exports = React.create-class do
   render: ->
     service = @get-service!
     return div null, "Loading..." unless service
-    div className: "#{status-to-colour service.status}",
-      h1 null, service.name
+    div null,
+      h1 className: "status #{status-to-colour service.status}", service.name
       ul className: "nav tabs",
         li null, a className: "active" href: "#", "Service Overview"
         li null, a href: "#", "Incidents"
@@ -58,14 +58,14 @@ Status = React.create-class do
 ComponentsTable = React.create-class do
   displayName: 'ComponentsTable'
   render: ->
-    table className: "table",
+    table className: "table table-hover",
       thead null,
         th null, "Component"
         th null, "Description"
         th null, "Status"
       tbody null,
         @props.components.map (component) ->
-          tr key: component.name, className: "host #{status-to-colour component.status}",
+          tr key: component.name, className: "host status #{status-to-colour component.status}",
            td null, component.name
            td null, component.description
            td className: "number",
@@ -74,13 +74,13 @@ ComponentsTable = React.create-class do
 HostsTable = React.create-class do
   displayName: 'HostsTable'
   render: ->
-    table className: "table",
+    table className: "table table-hover",
       thead null,
         th null, "Host"
         th null, "Status"
       tbody null,
         @props.hosts.map (host) ->
-          tr className: "host #{status-to-colour host.status}",
+          tr className: "host status #{status-to-colour host.status}",
            td null, host.hostname
            td className: "number",
              Status status: host.status, message: host.latest_message

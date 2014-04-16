@@ -39,7 +39,7 @@ Incident = React.create-class do
   render: ->
     div className: "incident",
       h2 null, "Incident ##{@props.id} - #{@props.service.name}"
-      dl id: "summary",
+      dl className: "dl-horizontal" id: "summary",
         dt null, 'Service Status'
         dd null, @props.service.status
         dt null, 'Started'
@@ -75,7 +75,7 @@ Incident = React.create-class do
 EventsTable = React.create-class do
   displayName: "EventsTable"
   render: ->
-    table className: "list",
+    table className: "table",
       thead null,
         th null, "Event Type"
         th null, "Service"
@@ -92,7 +92,7 @@ EventsTable = React.create-class do
 IncidentsTable = React.create-class do
   displayName: "IncidentsTable"
   render: ->
-    table className: "list",
+    table className: "table",
       thead null,
         th null, "Service"
         th null, "Component"

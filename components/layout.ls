@@ -2,7 +2,7 @@ React = window.React = require "react/addons" # Expose for Chrome DevTools
 {div, span, p, a, img, ul, li} = React.DOM
 {h1, h2, h3, h4}               = React.DOM
 {form, label, input, textarea} = React.DOM
-{nav, footer} = React.DOM
+{nav, main, footer} = React.DOM
 
 api = require "./api.ls"
 
@@ -49,14 +49,11 @@ module.exports = React.create-class do
 
   render: ->
     div className: "application",
-      Top null
-      Left services: @state.services
-      div id: "main",
+      Top services: @state.services
+      main className: "container",
         @props.handler merge(@state, @props.options) if @props.handler and @state.loaded
       Footer null
 
 Footer = React.create-class do
   render: ->
-    footer null,
-      div className: "container",
-        nav null, "&copy; Joe Stanton 2014"
+    footer null,  "© Joe Stanton 2014"

@@ -13,13 +13,6 @@ module.exports = React.create-class do
       ul id: "navigation",
         li null,
           a href: "/", "Dashboard"
-        li null,
-          a href: "/incidents", "Incidents"
-        li null,
-          a href: "/events", "Events"
-        #li null,
-          #a href: "/", "Metrics"
-        #li null,
-          #a href: "/", "Logs"
-        #li null,
-          #a href: "/", "Settings"
+        @props.services.map (s) ->
+          li null,
+            a href: "/#{s.slug}", s.name

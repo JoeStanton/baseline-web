@@ -42,11 +42,11 @@ $headings-font-weight: 800
 body
   -webkit-font-smoothing: antialiased
   background-color: #fbfbfb
+  min-height: 100vh
 
 #left
   @include make-sm-column(2)
-  min-height: 100%
-  padding-top: 18px
+  padding-top: 1.9em
 
   #search_box input
     width: 100%
@@ -54,8 +54,8 @@ body
   ul
     list-style: none
 
-#main
-  @include make-sm-column(10)
+main
+  border-bottom: 10px solid #eeeeee
 
 @media (min-width: 768px)
   .dl-horizontal
@@ -89,9 +89,23 @@ body
         color: #007196
         box-shadow: 0 -1px #007196 inset, 0 1px #007196
 
+h1.status, tr.status
+  border-left: 5px solid #eee
+  &.red
+    border-color: #d9534f
+  &.yellow
+    border-color: #f0ad4e
+  &.green
+    border-color: #dff0d8
+
+h1.status
+  padding-left: 4px
+
 footer
-  width: 960px
   margin: 0 auto
+  padding: 1em 0
+  text-align: center
+  box-shadow: 0 1px #eeeeee inset
 
 .row-border, .event
   padding: 10px 0 15px 0

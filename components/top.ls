@@ -15,4 +15,4 @@ module.exports = React.create-class do
           a href: "/", "Dashboard"
         @props.services.map (s) ->
           li null,
-            a href: "/#{s.slug}", s.name
+            a href: "/#{s.slug}/", s.name

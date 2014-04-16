@@ -58,16 +58,16 @@ body
 main
   border-bottom: 10px solid #eeeeee
 
-@media (min-width: 768px)
-  .dl-horizontal
-    dt
-      width: 210px
-    dd
-      margin-left: 220px
+#overview
+  @media (min-width: 768px)
+    .dl-horizontal
+      dt
+        width: 210px
+      dd
+        margin-left: 220px
 
-#summary
-  dt:after
-    content: ":"
+dt:after
+  content: ":"
 
 .tabs
   border-bottom: 1px solid #ddd
@@ -113,8 +113,16 @@ footer
   margin: 20px 0
 
 .event
+  min-height: 42px
   h3
     margin: 6px
   .left
     border-left: 1px solid #eee
     border-right: 1px solid #eee
+
+  @media (min-width: 768px)
+    .dl-horizontal
+      dt
+        width: 130px
+      dd
+        margin-left: 140px

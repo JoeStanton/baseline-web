@@ -57,7 +57,7 @@ module.exports = React.create-class do
 Overview = React.create-class do
   render: ->
     {service} = @props
-    div null,
+    div id: "overview",
       dl id: "summary" className: "dl-horizontal",
         dt null, 'Service Status'
         dd className: "number",

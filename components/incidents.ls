@@ -20,7 +20,6 @@ moment = require 'moment'
 module.exports = React.create-class do
   displayName: "Incidents"
   render: ->
-    return div null, "Loading..." unless @props.incidents
     {open, resolved} = @props.incidents |> group-by (.status)
     div null,
       h1 null, "Open Incidents"

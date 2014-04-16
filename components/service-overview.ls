@@ -4,24 +4,41 @@ React = window.React = require "react" # Expose for Chrome DevTools
 {form, label, input, textarea} = React.DOM
 {table, thead, tbody, th, td, tr} = React.DOM
 {dl, dd, dt} = React.DOM
-{nav} = React.DOM
+{nav, i} = React.DOM
 
 api = require "./api.ls"
 
 Top = require "./top.ls"
 Left = require "./left.ls"
+Events = require "./events.ls"
+Incidents = require "./incidents.ls"
 
 {status-to-colour, format-duration} = require './helpers.ls'
 
 numeral = require 'numeral'
 
-{find} = require 'prelude-ls'
+{find, filter} = require 'prelude-ls'
 
 module.exports = React.create-class do
   displayName: 'ServiceOverview'
+  getInitialState: ->
+    selected: @props.selected || "overview"
+
+  active: (view) -> if view == @state.selected then "active" else ""
+
   get-service: ->
     root = @
     @props.services |> find (.slug == root.props.slug)
+
+  get-events: ->
+    root = @
+    service = @get-service!
+    @props.events |> filter (.service_name == service.name)
+
+  get-incidents: ->
+    root = @
+    service = @get-service!
+    @props.incidents |> filter (.service_name == service.name)
 
   render: ->
     service = @get-service!
@@ -29,9 +46,18 @@ module.exports = React.create-class do
     div null,
       h1 className: "status #{status-to-colour service.status}", service.name
       ul className: "nav tabs",
-        li null, a className: "active" href: "#", "Service Overview"
-        li null, a href: "#", "Incidents"
-        li null, a href: "#", "Events"
+        li null, a className: "#{@active "overview"}" href: "./", "Service Overview"
+        li null, a className: "#{@active "incidents"}" href: "./incidents", "Incidents"
+        li null, a className: "#{@active "events"}" href: "./events", "Events"
+      switch @state.selected
+        | "overview" => Overview service: service
+        | "incidents" => Incidents incidents: @get-incidents!
+        | "events" => Events events: @get-events!
+
+Overview = React.create-class do
+  render: ->
+    {service} = @props
+    div null,
       dl id: "summary" className: "dl-horizontal",
         dt null, 'Service Status'
         dd className: "number",

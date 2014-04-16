@@ -8,6 +8,7 @@ $link-hover-color: #007196
 $headings-font-weight: 800
 
 @import bootstrap
+@import font-awesome
 
 #top
   background-color: #04394e
@@ -107,7 +108,13 @@ footer
   text-align: center
   box-shadow: 0 1px #eeeeee inset
 
-.row-border, .event
+.row-border
   padding: 10px 0 15px 0
   margin: 20px 0
-  border-bottom: 1px solid #eee
+
+.event
+  h3
+    margin: 6px
+  .left
+    border-left: 1px solid #eee
+    border-right: 1px solid #eee

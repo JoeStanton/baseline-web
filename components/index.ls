@@ -29,8 +29,11 @@ exports.start = ->
     layout.setProps handler: Component, options: options
 
   page '/', -> render Dashboard
-  page '/incidents', (ctx) -> render Incidents
-  page '/events', (ctx) -> render Events
-  page '/:slug', (ctx) -> render ServiceOverview, key: ctx.params.slug, slug: ctx.params.slug
+  page '/:slug', (ctx) ->
+    render ServiceOverview, key: ctx.params.slug + "overview", slug: ctx.params.slug
+  page '/:slug/incidents', (ctx) ->
+    render ServiceOverview, key: ctx.params.slug + "incidents", slug: ctx.params.slug, selected: "incidents"
+  page '/:slug/events', (ctx) ->
+    render ServiceOverview, key: ctx.params.slug + "events", slug: ctx.params.slug, selected: "events"
 
   page.start()

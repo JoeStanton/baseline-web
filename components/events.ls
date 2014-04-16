@@ -5,8 +5,9 @@ React = require "react"
 {form, label, input, textarea} = React.DOM
 {table, thead, tbody, th, td, tr} = React.DOM
 {strong, dl, dt, dd, hr} = React.DOM
+{nav, i, small} = React.DOM
 
-{status-to-colour, format-date} = require './helpers.ls'
+{status-to-colour, relative-time} = require './helpers.ls'
 
 display-type = (type) ->
   switch type
@@ -16,7 +17,6 @@ module.exports = React.create-class do
   displayName: "Events"
   render: ->
     div null,
-      h1 null, 'Recent Events'
       div null, @props.events.map (event) ->
         switch event.type
           | "CheckEvent" => CheckEvent event
@@ -49,19 +49,22 @@ Configuration = React.create-class do
 Deployment = React.create-class do
   displayName: "DeploymentEvent"
   render: ->
-    div null,
-      h2 null, "#{@props.service_name} - Deployment "
-      span className: "big-text", format-date @props.created_at
-      dl className: "dl-horizontal" id: "summary",
-        div className: "left",
+    div className: "event row",
+      div className: "type col-xs-2",
+        h3 null,
+          div null, "Deployment"
+          small null, relative-time @props.created_at
+      dl className: "dl-horizontal col-xs-5 left" id: "summary",
+        div null,
           dt null, "Repo"
           dd null, @props.repo
-          dt null, "Branch"
-          dd null, @props.branch
           dt null, "Build"
           dd null,
             a href: @props.url, @props.message
-        div className: "right",
+            i className: "fa fa-github"
+          dt null, "Branch"
+          dd null, @props.branch
+      dl className: "dl-horizontal col-xs-5 details",
           dt null, "Author"
           dd null, @props.author
           dt null, "Hosts"

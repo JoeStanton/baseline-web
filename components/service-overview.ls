@@ -4,7 +4,7 @@ React = window.React = require "react" # Expose for Chrome DevTools
 {form, label, input, textarea} = React.DOM
 {table, thead, tbody, th, td, tr} = React.DOM
 {dl, dd, dt} = React.DOM
-{nav, i} = React.DOM
+{nav, i, pre} = React.DOM
 
 api = require "./api.ls"
 
@@ -38,7 +38,7 @@ module.exports = React.create-class do
   get-incidents: ->
     root = @
     service = @get-service!
-    @props.incidents |> filter (.service_name == service.name)
+    @props.incidents |> filter (.service.name == service.name)
 
   render: ->
     service = @get-service!
@@ -52,10 +52,16 @@ module.exports = React.create-class do
         li null, a className: "#{@active "overview"}" href: "./", "Service Overview"
         li null, a className: "#{@active "incidents"}" href: "./incidents", "Incidents"
         li null, a className: "#{@active "events"}" href: "./events", "Events"
+        li null, a className: "#{@active "spec"}" href: "./spec", "Specification"
       switch @state.selected
         | "overview" => Overview service: service
         | "incidents" => Incidents incidents: @get-incidents!
         | "events" => Events events: @get-events!
+        | "spec" => Code code: service.spec
+
+Code = React.create-class do
+  render: ->
+    pre null, @props.code
 
 Overview = React.create-class do
   render: ->

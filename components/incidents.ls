@@ -7,7 +7,7 @@ React = require "react"
 {strong, dl, dt, dd} = React.DOM
 
 moment = require 'moment'
-{group-by} = require 'prelude-ls'
+{find, group-by} = require 'prelude-ls'
 
 {format-date} = require './helpers.ls'
 
@@ -20,56 +20,57 @@ moment = require 'moment'
 module.exports = React.create-class do
   displayName: "Incidents"
   render: ->
-    {open, resolved} = @props.incidents |> group-by (.status)
+    active = find (.status == "open"), @props.incidents
     div null,
-      h1 null, "Open Incidents"
-      if open
-        open.map Incident
+      if active
+        Incident active
       else
-        "None."
-      h1 null, "Resolved Incidents"
-      if resolved
-        resolved.map Incident
-      else
-        "None."
+        if @props.incidents.length
+          @props.incidents.map Incident
+        else
+          "No incidents have been detected yet."
 
 Incident = React.create-class do
   displayName: "Incident"
+  getInitialState: ->
+    selected: @props.selected || "recent"
   render: ->
     div className: "incident",
-      h2 null, "Incident ##{@props.id} - #{@props.service.name}"
+      h2 null, "Incident ##{@props.id}"
       dl className: "dl-horizontal" id: "summary",
         dt null, 'Service Status'
         dd null, @props.service.status
         dt null, 'Started'
         dd null, format-date @props.created_at
         dt null, 'Notified Users'
-        dd null, @props.notified-users?.join ', '
         dt null, 'Hosts'
         dd null, @props.hosts.join ', '
         dt null, 'Affected Components'
         dd null, @props.components.join ', '
         @related! if @props.status == 'open'
 
-  related: ->
-    div className: "related",
-      h2 null, "Recent Events",
-        EventsTable events: [
-          type: "Deployment"
-          service: "Fortnum & Mason Awards"
-          date: 'Fri 14th March - 10:30PM (10 days ago)'
-          hosts: "rb-prod-01"
-        ]
+  active: (view) -> if view == @state.selected then "active" else ""
 
-      h2 null, "Similar Incidents",
-        IncidentsTable incidents: [
-          service: "Fortnum & Mason Awards"
-          components: ["Nginx"]
-          date: 'Fri 14th March - 10:30PM (10 days ago)'
-          resolution-time: '10 minutes'
-          resolved-by: 'Stuart Harris'
-          root-cause: "File descriptor limit exceeded. Caused intermittent failed requests."
-        ]
+  related: ->
+    div null,
+      ul className: "nav tabs",
+        li null, a className: "#{@active "recent"}" href: "#", "Recent Events"
+        li null, a className: "#{@active "similar"}" href: "#", "Similar Incidents"
+      switch @state.selected
+        | "related" =>
+            EventsTable events: [
+              type: "Deployment"
+              date: 'Fri 14th March - 10:30PM (10 days ago)'
+              hosts: "rb-prod-01"
+            ]
+        | "recent" =>
+            IncidentsTable incidents: [
+              components: ["Nginx"]
+              date: 'Fri 14th March - 10:30PM (10 days ago)'
+              resolution-time: '10 minutes'
+              resolved-by: 'Stuart Harris'
+              root-cause: "File descriptor limit exceeded. Caused intermittent failed requests."
+            ]
 
 EventsTable = React.create-class do
   displayName: "EventsTable"
@@ -77,14 +78,12 @@ EventsTable = React.create-class do
     table className: "table",
       thead null,
         th null, "Event Type"
-        th null, "Service"
         th null, "Date"
         th null, "Hosts"
       tbody null,
         @props.events.map (event) ->
           tr className: "related-event",
            td null, event.type
-           td null, event.service
            td null, event.date
            td null, event.hosts
 
@@ -93,7 +92,6 @@ IncidentsTable = React.create-class do
   render: ->
     table className: "table",
       thead null,
-        th null, "Service"
         th null, "Component"
         th null, "Date"
         th null, "Resolution Time"
@@ -102,7 +100,6 @@ IncidentsTable = React.create-class do
       tbody null,
         @props.incidents.map (incident) ->
           tr className: "related-incident",
-           td null, incident.service
            td null, incident.components.join ', '
            td null, incident.date
            td null, incident.resolution-time

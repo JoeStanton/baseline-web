@@ -17,12 +17,15 @@ module.exports = React.create-class do
   displayName: "Events"
   render: ->
     div null,
-      div null, @props.events.map (event) ->
-        switch event.type
-          | "Deployment" => Deployment event: event
-          | "Configuration" => Configuration event: event
-          | "HostEvent" => HostRegistration event: event
-          #| otherwise => console.log event
+      if @props.events.length
+        div null, @props.events.map (event) ->
+          switch event.type
+            | "Deployment" => Deployment event: event
+            | "Configuration" => Configuration event: event
+            | "HostEvent" => HostRegistration event: event
+            #| otherwise => console.log event
+      else
+        "No events have been detected yet."
 
 Event = React.create-class do
   displayName: "Event"

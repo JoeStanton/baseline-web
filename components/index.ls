@@ -14,7 +14,7 @@ listen = (component) ->
   #Pusher.log = (message) -> console.log message
   pusher = new Pusher "48576a45701f7987f3fc"
   channel = pusher.subscribe "updates"
-  for entity in ['service', 'component', 'host']
+  for entity in ['service', 'component', 'host', 'event', 'deployment', 'configuration']
     channel.bind "#{entity}.create", component.sync
     channel.bind "#{entity}.update", component.sync
     channel.bind "#{entity}.destroy", component.sync

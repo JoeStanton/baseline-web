@@ -10,6 +10,8 @@ $headings-font-weight: 800
 @import bootstrap
 @import font-awesome
 
+
+
 #top
   background-color: #04394e
   padding-left: 3em
@@ -17,6 +19,8 @@ $headings-font-weight: 800
   h1
     padding-top: 0.2em
     display: inline-block
+    width: 172px
+    margin-top: -1px
     a
       color: white
 
@@ -48,6 +52,14 @@ body
 main
   border-bottom: 1px solid #eeeeee
   min-height: 85vh
+
+g.node
+  &.red
+    fill: red
+  &.yellow
+    fill: yellow
+  &.green
+    fill: green
 
 #overview
   @media (min-width: 768px)

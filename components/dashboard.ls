@@ -11,12 +11,15 @@ Graph = require "./graph.ls"
 
 module.exports = React.create-class do
   render: ->
-    services = @props.services
-    serviceLookup = {}
-    services.forEach (s, index) -> serviceLookup[s.slug] = index
-    edges = services
-            |> map(({slug, dependencies}) -> map ((dep) -> source: serviceLookup[slug], target: serviceLookup[dep], weight: 1), dependencies)
+    service = @props.services.1
+    nodes = flatten [service, service.components]
+
+    lookup = {}
+    nodes.forEach (c, index) -> lookup[c.slug] = index
+
+    edges = nodes
+            |> map(({slug, dependencies}) -> map ((dep) -> source: lookup[slug], target: lookup[dep], weight: 1), dependencies)
             |> flatten
 
     h1 null, "Dashboard"
-    Graph nodes: services, edges: edges
+    Graph nodes: nodes, edges: edges

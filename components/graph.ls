@@ -20,15 +20,16 @@ module.exports = React.create-class do
              .nodes @props.nodes
              .links @props.edges
              .size [1100, 700]
-             .linkDistance 400
-             .charge -150
+             .gravity 0
+             .linkDistance 150
+             .charge -550
 
     @root = d3.select @get-DOM-node!
     @paint!
 
     @force.on "tick", (e) ~>
       @root.selectAll("g")
-           .attr "transform", (d) -> "translate(#{[d.x, d.y]})"
+           .attr "transform", (d) -> "translate(#{[d.x, d.y - e.alpha]})"
 
       @root.selectAll(".link")
            .attr "d", (d) ->

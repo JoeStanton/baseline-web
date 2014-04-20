@@ -1,4 +1,4 @@
-React = require "react"
+React = require "react/addons"
 
 {div, span, p, a, img, ul, li} = React.DOM
 {h1, h2, h3, h4}               = React.DOM
@@ -10,6 +10,7 @@ moment = require 'moment'
 {find, group-by} = require 'prelude-ls'
 
 {format-date} = require './helpers.ls'
+api = require './api.ls'
 
 #service: "Fortnum & Mason Awards Site"
 #components: ["Nginx"]
@@ -32,12 +33,21 @@ module.exports = React.create-class do
 
 Incident = React.create-class do
   displayName: "Incident"
+  mixins: [React.addons.LinkedStateMixin]
   getInitialState: ->
+    root-cause: @props.root_cause || ""
+    loading: false
     selected: @props.selected || "recent"
+  submit: ->
+    root = @
+    root.set-state loading: true
+    api.put "/incidents/#{@props.id}", incident: root_cause: @state.root-cause, (error) ->
+      alert 'Could not save root cause.' if error
+      root.set-state loading: false
   render: ->
-    div className: "incident",
+    div className: "incident clearfix",
       h2 null, "Incident ##{@props.id}"
-      dl className: "dl-horizontal" id: "summary",
+      dl className: "dl-horizontal col-xs-6" id: "summary",
         dt null, 'Service Status'
         dd null, @props.service.status
         dt null, 'Started'
@@ -47,12 +57,18 @@ Incident = React.create-class do
         dd null, @props.hosts.join ', '
         dt null, 'Affected Components'
         dd null, @props.components.join ', '
-        @related! if @props.status == 'open'
+      if @props.status == 'open'
+        form className: "col-xs-6 form root-cause",
+          div className: "form-group",
+            label html-for: "root-cause", "Root Cause Analysis"
+            textarea className: "form-control" name: "root-cause", value-link: @link-state('rootCause')
+            a className: "btn btn-success pull-right", disabled: @state.loading, onClick: @submit, "Save"
+      @related! if @props.status == 'open'
 
   active: (view) -> if view == @state.selected then "active" else ""
 
   related: ->
-    div null,
+    div className: "clearfix",
       ul className: "nav tabs",
         li null, a className: "#{@active "recent"}" href: "#", "Recent Events"
         li null, a className: "#{@active "similar"}" href: "#", "Similar Incidents"

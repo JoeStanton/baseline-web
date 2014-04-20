@@ -53,14 +53,6 @@ main
   border-bottom: 1px solid #eeeeee
   min-height: 85vh
 
-g.node
-  &.red
-    fill: red
-  &.yellow
-    fill: yellow
-  &.green
-    fill: green
-
 #overview
   @media (min-width: 768px)
     .dl-horizontal
@@ -151,3 +143,31 @@ footer
         width: 130px
       dd
         margin-left: 140px
+
+svg
+  margin-top: 30px
+
+  .node
+    &.red
+      rect
+        stroke: #d9534f
+    &.yellow
+      rect
+        stroke: #f0ad4e
+    &.green
+      rect
+        stroke: #dff0d8
+    &.grey
+      rect
+        stroke: #e3e3e3
+    rect
+      stroke-width: 1.5px
+      fill: #fff
+
+  .edgeLabel rect
+    fill: #fff
+
+  .edgePath
+    stroke: #e3e3e3
+    stroke-width: 1.5px
+    fill: none

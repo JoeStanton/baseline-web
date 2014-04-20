@@ -34,7 +34,8 @@
     "async": "^0.4.0",
     "moment": "^2.5.1",
     "merge": "^1.1.2",
-    "numeral": "^1.5.3"
+    "numeral": "^1.5.3",
+    "dagre-d3": "^0.1.5"
   },
   "devDependencies": {
     "gulp": "^3.5.6",

@@ -11,6 +11,5 @@ module.exports = React.create-class do
       h1 null,
         a className: "active", "Baseline"
       ul id: "navigation",
-        a href: "/", li null, "Dashboard"
         @props.services.map (s) ->
           a href: "/#{s.slug}/", li null, s.name

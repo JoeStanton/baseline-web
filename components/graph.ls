@@ -12,19 +12,28 @@ dagre = require "dagre-d3"
 {map, concat-map, flatten} = require 'prelude-ls'
 
 module.exports = React.create-class do
+  displayName: "Graph"
   render: ->
-    svg width: '100%' height: '100%'
+    svg className: "graph"
 
   shouldComponentUpdate: -> false
 
-  componentDidMount: ->
+  componentDidMount: -> @paint @props.service
+  componentWillReceiveProps: (newProps) ->
+    @paint newProps.service
+
+  paint: (service) ->
     root-svg = d3.select @get-DOM-node!
-    {service} = @props
 
     g = new dagre.Digraph
 
     nodes = flatten [service, service.components]
-    nodes.for-each (n) -> g.add-node n.slug, label: n.name, status: n.status
+    nodes.for-each (n) ->
+      g.add-node n.slug,
+        label: n.name,
+        status: n.status,
+        type: if n is service then "service" else "component"
+
     nodes.for-each (source) ->
       source.dependencies.for-each (target) ->
         g.add-edge null, source.slug, target
@@ -36,12 +45,11 @@ module.exports = React.create-class do
     old-draw-nodes = renderer.draw-nodes!
     renderer.draw-nodes (graph, root) ->
       svg-nodes = old-draw-nodes graph, root
-      svg-nodes.attr 'class', (d) -> "node #{status-to-colour g.node(d).status}"
+      svg-nodes.attr 'class', (d) -> "node #{g.node(d).type} #{status-to-colour g.node(d).status}"
       svg-nodes
 
-    renderer.layout(layout).run g, root-svg
+    rendered = renderer.layout(layout).run g, root-svg
 
-  componentWillReceiveProps: (newProps) ->
-    @force.nodes newProps.nodes
-    @force.links newProps.edges
-    @paint!
+    root-svg
+      .attr("width", rendered.graph!.width)
+      .attr("height", rendered.graph!.height)

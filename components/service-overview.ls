@@ -12,6 +12,7 @@ Top = require "./top.ls"
 Left = require "./left.ls"
 Events = require "./events.ls"
 Incidents = require "./incidents.ls"
+Graph = require "./graph.ls"
 
 {status-to-colour, format-duration} = require './helpers.ls'
 
@@ -50,6 +51,7 @@ module.exports = React.create-class do
         input id: "search" placeholder: "Search..."
       ul className: "nav tabs",
         li null, a className: "#{@active "overview"}" href: "./", "Service Overview"
+        li null, a className: "#{@active "graph"}" href: "./graph", "Architecture"
         li null, a className: "#{@active "incidents"}" href: "./incidents", "Incidents"
         li null, a className: "#{@active "events"}" href: "./events", "Events"
         li null, a className: "#{@active "spec"}" href: "./spec", "Specification"
@@ -57,6 +59,7 @@ module.exports = React.create-class do
         | "overview" => Overview service: service
         | "incidents" => Incidents incidents: @get-incidents!
         | "events" => Events events: @get-events!
+        | "graph" => Graph service: service
         | "spec" => Code code: service.spec
 
 Code = React.create-class do

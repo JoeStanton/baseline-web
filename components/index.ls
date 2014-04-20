@@ -35,6 +35,8 @@ exports.start = ->
     render ServiceOverview, key: ctx.params.slug + "incidents", slug: ctx.params.slug, selected: "incidents"
   page '/:slug/events', (ctx) ->
     render ServiceOverview, key: ctx.params.slug + "events", slug: ctx.params.slug, selected: "events"
+  page '/:slug/graph', (ctx) ->
+    render ServiceOverview, key: ctx.params.slug + "graph", slug: ctx.params.slug, selected: "graph"
   page '/:slug/spec', (ctx) ->
     render ServiceOverview, key: ctx.params.slug + "spec", slug: ctx.params.slug, selected: "spec"
 

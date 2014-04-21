@@ -57,6 +57,8 @@ Incident = React.create-class do
         dd null, @props.hosts.join ', '
         dt null, 'Affected Components'
         dd null, @props.components.join ', '
+        dt null, 'Predicted Root Cause'
+        dd null, @props.predicted_root_cause
       if @props.status == 'open'
         form className: "col-xs-6 form root-cause",
           div className: "form-group",

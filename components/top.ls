@@ -9,7 +9,7 @@ module.exports = React.create-class do
   render: ->
     div id: "top",
       h1 null,
-        a className: "active", "Baseline"
+        a className: "active" href: "/", "Baseline"
       ul id: "navigation",
         @props.services.map (s) ->
           a href: "/#{s.slug}/", li null, s.name
